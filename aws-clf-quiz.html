@@ -1,0 +1,1835 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AWS CLF 4択トレーニング</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400..700,0..1,0&amp;display=block" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #eef2f7;
+      --panel: #ffffff;
+      --text: #17202a;
+      --muted: #667085;
+      --line: #d8dee8;
+      --line-strong: #b9c2cf;
+      --aws: #ff9900;
+      --aws-dark: #232f3e;
+      --blue: #2563eb;
+      --green: #15803d;
+      --green-soft: #e9f8ee;
+      --red: #b42318;
+      --red-soft: #fff0ed;
+      --yellow-soft: #fff6df;
+      --focus: #111827;
+      --shadow: 0 10px 22px rgba(22, 34, 51, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+      overflow: hidden;
+      font-size: 15px;
+    }
+
+    body {
+      --auto-font-scale: 1;
+      margin: 0;
+      height: 100dvh;
+      min-height: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      font-size: calc(1rem * var(--auto-font-scale));
+      line-height: 1.55;
+      letter-spacing: 0;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+    }
+
+    body.fit-tight {
+      --auto-font-scale: 0.92;
+    }
+
+    body.fit-ultra {
+      --auto-font-scale: 0.84;
+    }
+
+    button,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    select:focus-visible {
+      outline: 3px solid rgba(37, 99, 235, 0.38);
+      outline-offset: 2px;
+    }
+
+    .material-symbols-outlined {
+      display: inline-block;
+      font-family: "Material Symbols Outlined";
+      font-size: 1.22em;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: none;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: "liga";
+      -webkit-font-smoothing: antialiased;
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 600,
+        "GRAD" 0,
+        "opsz" 24;
+      pointer-events: none;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 760px;
+      min-width: 280px;
+      height: 100dvh;
+      margin: 0 auto;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .topbar {
+      flex: 0 0 auto;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 2px 8px;
+      border-bottom: 2px solid var(--aws);
+      background: var(--bg);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      background: var(--aws-dark);
+      color: white;
+      font-size: 0.77rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      box-shadow: inset 0 -4px 0 var(--aws);
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--aws-dark);
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .score-pill {
+      display: grid;
+      gap: 0;
+      min-width: 82px;
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 4px 12px rgba(22, 34, 51, 0.08);
+      text-align: right;
+    }
+
+    .score-label {
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.1;
+    }
+
+    .score-value {
+      color: var(--aws-dark);
+      font-size: 1.12rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .progress-wrap {
+      grid-column: 1 / -1;
+      height: 7px;
+      background: #e5eaf1;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--aws), #22a06b);
+      transition: width 160ms ease;
+    }
+
+    .toolbar {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 6px;
+      margin: 6px 0 10px;
+    }
+
+    .select,
+    .tool-btn {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+    }
+
+    .select {
+      width: 100%;
+      min-width: 0;
+      padding: 0 30px 0 10px;
+    }
+
+    .tool-btn {
+      display: inline-grid;
+      place-items: center;
+      min-width: 38px;
+      padding: 0 10px;
+      font-weight: 700;
+    }
+
+    .tool-btn .material-symbols-outlined,
+    .nav-btn .material-symbols-outlined {
+      font-size: 1.28rem;
+    }
+
+    .tool-btn:hover {
+      border-color: var(--line-strong);
+      background: #fbfcfe;
+    }
+
+    .tool-btn.active {
+      border-color: rgba(255, 153, 0, 0.8);
+      background: var(--yellow-soft);
+      color: #7a4a00;
+    }
+
+    .quiz {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-height: 0;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .meta {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfe;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 8px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .counter {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .question-area {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-height: 0;
+      padding: 14px 12px 12px;
+      overflow: hidden;
+    }
+
+    .question {
+      flex: 0 0 auto;
+      min-height: 0;
+      margin: 0;
+      color: var(--text);
+      font-size: 1.06rem;
+      font-weight: 800;
+      line-height: 1.52;
+    }
+
+    .options {
+      flex: 1 1 auto;
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      min-height: 0;
+      align-content: start;
+    }
+
+    .option {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 8px;
+      align-items: center;
+      width: 100%;
+      min-height: 46px;
+      padding: 8px 10px 8px 8px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--text);
+      text-align: left;
+      transition: border-color 120ms ease, background 120ms ease, transform 120ms ease;
+    }
+
+    .option:hover {
+      border-color: var(--line-strong);
+      background: #fbfcfe;
+    }
+
+    .option:active {
+      transform: translateY(1px);
+    }
+
+    .option-key {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      background: #edf1f6;
+      color: var(--aws-dark);
+      font-size: 0.84rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .option-text {
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .option.correct {
+      border-color: rgba(21, 128, 61, 0.55);
+      background: var(--green-soft);
+    }
+
+    .option.correct .option-key {
+      background: var(--green);
+      color: #ffffff;
+    }
+
+    .option.incorrect {
+      border-color: rgba(180, 35, 24, 0.45);
+      background: var(--red-soft);
+    }
+
+    .option.incorrect .option-key {
+      background: var(--red);
+      color: #ffffff;
+    }
+
+    .explain {
+      flex: 0 0 auto;
+      display: none;
+      margin-top: 12px;
+      padding: 10px;
+      border-left: 4px solid var(--blue);
+      background: #eff6ff;
+      color: #16335f;
+      font-size: 0.91rem;
+      font-weight: 650;
+    }
+
+    .explain.visible {
+      display: block;
+    }
+
+    .nav {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 12px;
+      border-top: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .nav-btn,
+    .primary-btn {
+      min-height: 38px;
+      font-weight: 800;
+    }
+
+    .nav-btn {
+      min-width: 42px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--aws-dark);
+    }
+
+    .nav-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+    .primary-btn {
+      width: 100%;
+      padding: 0 12px;
+      background: var(--aws-dark);
+      color: #ffffff;
+    }
+
+    .summary-head .tool-btn {
+      min-width: 36px;
+      padding: 0 8px;
+    }
+
+    .primary-btn:hover,
+    .nav-btn:hover:not(:disabled) {
+      filter: brightness(1.04);
+    }
+
+    .summary {
+      flex: 0 0 auto;
+      display: none;
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      overflow: hidden;
+    }
+
+    .summary.visible {
+      display: block;
+    }
+
+    .summary-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfe;
+    }
+
+    .summary-title {
+      margin: 0;
+      color: var(--aws-dark);
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+
+    .summary-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .domain-stat {
+      min-width: 0;
+      padding: 10px;
+      border-right: 1px solid var(--line);
+    }
+
+    .domain-stat:last-child {
+      border-right: 0;
+    }
+
+    .domain-name {
+      min-height: 2.8em;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .domain-score {
+      color: var(--aws-dark);
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .empty {
+      display: none;
+      margin: 12px 0 0;
+      padding: 12px;
+      border: 1px dashed var(--line-strong);
+      background: #ffffff;
+      color: var(--muted);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .empty.visible {
+      display: block;
+    }
+
+    .source {
+      flex: 0 0 auto;
+      margin: 10px 2px 0;
+      color: var(--muted);
+      font-size: 0.75rem;
+      line-height: 1.45;
+    }
+
+    .source a {
+      color: #1d4ed8;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    body.fit-tight .app {
+      padding: 6px;
+    }
+
+    body.fit-tight .topbar {
+      gap: 5px;
+      padding: 5px 1px 4px;
+    }
+
+    body.fit-tight .logo {
+      width: 28px;
+      height: 28px;
+      font-size: 0.66rem;
+      box-shadow: inset 0 -3px 0 var(--aws);
+    }
+
+    body.fit-tight h1 {
+      font-size: 0.92rem;
+    }
+
+    body.fit-tight .subtitle {
+      display: none;
+    }
+
+    body.fit-tight .score-pill {
+      min-width: 64px;
+      padding: 3px 6px;
+    }
+
+    body.fit-tight .score-label {
+      font-size: 0.64rem;
+    }
+
+    body.fit-tight .score-value {
+      font-size: 0.98rem;
+      line-height: 1.1;
+    }
+
+    body.fit-tight .progress-wrap {
+      height: 5px;
+    }
+
+    body.fit-tight .toolbar {
+      gap: 5px;
+      margin: 4px 0 5px;
+    }
+
+    body.fit-tight .select,
+    body.fit-tight .tool-btn {
+      min-height: 30px;
+    }
+
+    body.fit-tight .tool-btn {
+      min-width: 32px;
+      padding: 0 7px;
+    }
+
+    body.fit-tight .meta {
+      gap: 5px;
+      padding: 5px 8px;
+    }
+
+    body.fit-tight .chip-row {
+      gap: 4px;
+    }
+
+    body.fit-tight .chip {
+      min-height: 20px;
+      padding: 1px 6px;
+      font-size: 0.68rem;
+    }
+
+    body.fit-tight .counter {
+      font-size: 0.69rem;
+    }
+
+    body.fit-tight .question-area {
+      padding: 7px 8px 6px;
+    }
+
+    body.fit-tight .question {
+      font-size: 0.92rem;
+      line-height: 1.34;
+    }
+
+    body.fit-tight .options {
+      gap: 5px;
+      margin-top: 7px;
+    }
+
+    body.fit-tight .option {
+      grid-template-columns: 25px 1fr;
+      gap: 6px;
+      min-height: 34px;
+      padding: 4px 6px;
+    }
+
+    body.fit-tight .option-key {
+      width: 23px;
+      height: 23px;
+      font-size: 0.75rem;
+    }
+
+    body.fit-tight .option-text {
+      line-height: 1.3;
+    }
+
+    body.fit-tight .explain {
+      margin-top: 6px;
+      padding: 6px;
+      border-left-width: 3px;
+      font-size: 0.78rem;
+      line-height: 1.34;
+      max-height: 3.35em;
+      overflow: hidden;
+    }
+
+    body.fit-tight .nav {
+      gap: 6px;
+      padding: 6px 8px;
+    }
+
+    body.fit-tight .nav-btn,
+    body.fit-tight .primary-btn {
+      min-height: 31px;
+    }
+
+    body.fit-tight .nav-btn {
+      min-width: 34px;
+    }
+
+    body.fit-tight .summary,
+    body.fit-tight .source,
+    body.fit-ultra .summary,
+    body.fit-ultra .source {
+      display: none !important;
+    }
+
+    body.fit-ultra .app {
+      padding: 4px;
+    }
+
+    body.fit-ultra .topbar {
+      padding: 2px 0;
+    }
+
+    body.fit-ultra .logo {
+      width: 22px;
+      height: 22px;
+      font-size: 0.58rem;
+    }
+
+    body.fit-ultra h1 {
+      font-size: 0.84rem;
+    }
+
+    body.fit-ultra .score-pill {
+      min-width: 54px;
+      padding: 2px 5px;
+    }
+
+    body.fit-ultra .score-label {
+      display: none;
+    }
+
+    body.fit-ultra .score-value {
+      font-size: 0.9rem;
+    }
+
+    body.fit-ultra .progress-wrap {
+      height: 4px;
+    }
+
+    body.fit-ultra .toolbar {
+      gap: 4px;
+      margin: 3px 0 4px;
+    }
+
+    body.fit-ultra .select,
+    body.fit-ultra .tool-btn {
+      min-height: 27px;
+    }
+
+    body.fit-ultra .tool-btn {
+      min-width: 29px;
+    }
+
+    body.fit-ultra .meta {
+      padding: 3px 6px;
+    }
+
+    body.fit-ultra #levelChip {
+      display: none;
+    }
+
+    body.fit-ultra .question-area {
+      padding: 5px 6px;
+    }
+
+    body.fit-ultra .question {
+      display: -webkit-box;
+      overflow: hidden;
+      font-size: 0.86rem;
+      line-height: 1.28;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+    }
+
+    body.fit-ultra .options {
+      gap: 3px;
+      margin-top: 5px;
+    }
+
+    body.fit-ultra .option {
+      grid-template-columns: 22px 1fr;
+      min-height: 29px;
+      padding: 3px 5px;
+    }
+
+    body.fit-ultra .option-key {
+      width: 20px;
+      height: 20px;
+      font-size: 0.68rem;
+    }
+
+    body.fit-ultra .option-text {
+      line-height: 1.22;
+    }
+
+    body.fit-ultra .explain {
+      margin-top: 4px;
+      padding: 4px 5px;
+      font-size: 0.7rem;
+      line-height: 1.24;
+      max-height: 2.65em;
+    }
+
+    body.fit-ultra .nav {
+      gap: 5px;
+      padding: 2px 6px;
+    }
+
+    body.fit-ultra .nav-btn,
+    body.fit-ultra .primary-btn {
+      min-height: 26px;
+    }
+
+    body.fit-ultra .nav-btn {
+      min-width: 28px;
+    }
+
+    @media (max-width: 520px) {
+      .app {
+        padding: 7px;
+      }
+
+      .topbar {
+        grid-template-columns: 1fr auto;
+        gap: 6px;
+        padding-top: 7px;
+      }
+
+      .logo {
+        width: 30px;
+        height: 30px;
+        font-size: 0.7rem;
+      }
+
+      h1 {
+        font-size: 0.96rem;
+      }
+
+      .subtitle,
+      .source {
+        font-size: 0.7rem;
+      }
+
+      .score-pill {
+        min-width: 74px;
+        padding: 5px 7px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr repeat(2, 36px);
+      }
+
+      .tool-btn {
+        min-width: 36px;
+        padding: 0;
+      }
+
+      .meta,
+      .question-area,
+      .nav {
+        padding-left: 9px;
+        padding-right: 9px;
+      }
+
+      .question {
+        min-height: 0;
+        font-size: 1rem;
+      }
+
+      .option {
+        grid-template-columns: 28px 1fr;
+        gap: 7px;
+        min-height: 44px;
+        padding: 7px 8px 7px 7px;
+      }
+
+      .option-key {
+        width: 26px;
+        height: 26px;
+      }
+
+      .summary-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .domain-stat {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .domain-stat:nth-child(even) {
+        border-right: 0;
+      }
+
+      .domain-stat:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+    }
+
+    @media (max-width: 340px) {
+      .brand {
+        gap: 6px;
+      }
+
+      .subtitle {
+        display: none;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr repeat(2, 34px);
+      }
+
+      .chip {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+      }
+
+      .question {
+        min-height: 0;
+      }
+
+      .nav {
+        gap: 6px;
+      }
+    }
+
+    .logo,
+    .score-pill,
+    .progress-wrap,
+    .select,
+    .tool-btn,
+    .quiz,
+    .chip,
+    .option,
+    .option-key,
+    .explain,
+    .nav-btn,
+    .primary-btn,
+    .summary,
+    .empty {
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">AWS</div>
+        <div>
+          <h1>AWS CLF 4択トレーニング</h1>
+          <div class="subtitle">CLF-C02重要サービス 60問</div>
+        </div>
+      </div>
+      <div class="score-pill" aria-live="polite">
+        <span class="score-label">正答</span>
+        <span class="score-value" id="scoreValue">0/0</span>
+      </div>
+      <div class="progress-wrap" aria-hidden="true">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="学習設定">
+      <select class="select" id="domainSelect" aria-label="出題カテゴリ">
+        <option value="all">全カテゴリ</option>
+      </select>
+      <button class="tool-btn" id="shuffleBtn" type="button" title="並び替え" aria-label="並び替え">
+        <span class="material-symbols-outlined" aria-hidden="true">shuffle</span>
+      </button>
+      <button class="tool-btn" id="wrongBtn" type="button" title="間違い復習" aria-label="間違い復習">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </section>
+
+    <section class="quiz" id="quizPanel" aria-live="polite">
+      <div class="meta">
+        <div class="chip-row">
+          <span class="chip" id="domainChip">カテゴリ</span>
+          <span class="chip" id="levelChip">基礎</span>
+        </div>
+        <div class="counter" id="counter">0 / 60</div>
+      </div>
+
+      <div class="question-area">
+        <p class="question" id="questionText"></p>
+        <div class="options" id="options"></div>
+        <div class="explain" id="explain"></div>
+      </div>
+
+      <nav class="nav" aria-label="問題移動">
+        <button class="nav-btn" id="prevBtn" type="button" title="前の問題" aria-label="前の問題">
+          <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+        </button>
+        <button class="primary-btn" id="nextBtn" type="button">次の未回答へ</button>
+        <button class="nav-btn" id="nextArrowBtn" type="button" title="次の問題" aria-label="次の問題">
+          <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+        </button>
+      </nav>
+    </section>
+
+    <p class="empty" id="emptyState">対象の問題がありません。</p>
+
+    <section class="summary" id="summary">
+      <div class="summary-head">
+        <h2 class="summary-title">カテゴリ別</h2>
+        <button class="tool-btn" id="resetBtn" type="button" title="リセット" aria-label="リセット">
+          <span class="material-symbols-outlined" aria-hidden="true">restart_alt</span>
+        </button>
+      </div>
+      <div class="summary-list" id="summaryList"></div>
+    </section>
+
+    <p class="source">
+      参考: <a href="https://docs.aws.amazon.com/aws-certification/latest/cloud-practitioner-02/cloud-practitioner-02.html" target="_blank" rel="noreferrer">AWS Certified Cloud Practitioner (CLF-C02) Exam Guide</a> /
+      <a href="https://docs.aws.amazon.com/aws-certification/latest/cloud-practitioner-02/clf-02-in-scope-services.html" target="_blank" rel="noreferrer">In-Scope AWS Services</a>
+    </p>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "aws-clf-quiz-v2";
+
+    const DOMAINS = [
+      "クラウド概念",
+      "セキュリティとコンプライアンス",
+      "クラウド技術とサービス",
+      "請求・料金・サポート"
+    ];
+
+    const QUESTIONS = [
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "初期投資を抑え、使った分だけ支払うというAWSクラウドの価値を最もよく表すものはどれですか。",
+        choices: ["固定資産としてサーバーを購入する", "需要に応じて従量課金で利用する", "すべての運用作業を利用者が実施する", "データセンター契約を長期固定にする"],
+        a: 1,
+        exp: "AWSでは事前の大きな設備投資を避け、必要なリソースを必要な分だけ利用できます。これはクラウドの経済性として頻出です。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "AWSリージョンの説明として正しいものはどれですか。",
+        choices: ["1つ以上のアベイラビリティゾーンを含む地理的なエリア", "CloudFrontだけで使われるキャッシュ拠点", "1台の物理サーバーを表す単位", "IAMユーザーをまとめる論理グループ"],
+        a: 0,
+        exp: "リージョンは地理的に分離されたエリアで、複数のアベイラビリティゾーンで構成されます。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "アプリケーションを複数のアベイラビリティゾーンに配置する主な目的はどれですか。",
+        choices: ["請求通貨を変更するため", "高可用性を高めるため", "IAMポリシーを不要にするため", "すべての通信を無料にするため"],
+        a: 1,
+        exp: "複数AZに分散すると、単一AZの障害の影響を抑えやすくなり、高可用性の設計に役立ちます。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "オンプレミス環境とAWSクラウドを組み合わせて使う構成は何と呼ばれますか。",
+        choices: ["エッジのみの構成", "ハイブリッドクラウド", "シングルAZ構成", "リザーブド構成"],
+        a: 1,
+        exp: "オンプレミスとクラウドを連携させる構成はハイブリッドクラウドです。Direct ConnectやVPNが関連サービスとして出題されます。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "アクセス増加に応じてリソースを自動的に増減させる性質はどれですか。",
+        choices: ["弾力性", "データ主権", "否認防止", "静的プロビジョニング"],
+        a: 0,
+        exp: "弾力性は需要に合わせてリソースを増減できる性質です。Auto Scalingやサーバーレスの考え方と結びつきます。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "AWS Well-Architected Frameworkの柱に含まれないものはどれですか。",
+        choices: ["運用上の優秀性", "信頼性", "サーバー購入管理", "コスト最適化"],
+        a: 2,
+        exp: "Well-Architectedの柱は、運用上の優秀性、セキュリティ、信頼性、パフォーマンス効率、コスト最適化、サステナビリティです。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "標準",
+        q: "Infrastructure as Codeを使う主な利点はどれですか。",
+        choices: ["一度限りの手作業を増やせる", "環境構築を再現しやすくできる", "MFAを無効化できる", "AWS利用料が常にゼロになる"],
+        a: 1,
+        exp: "IaCはインフラをコードで管理し、変更履歴や再現性を確保しやすくします。AWS CloudFormationが代表例です。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "AWSサービスをプログラムから操作する代表的な方法として適切なものはどれですか。",
+        choices: ["SDKやCLIを使う", "AZ名を暗号鍵として使う", "サポートプランを削除する", "請求アラームだけを使う"],
+        a: 0,
+        exp: "AWSサービスはマネジメントコンソールのほか、CLI、SDK、APIなどから操作できます。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "標準",
+        q: "世界中の利用者に低レイテンシーで静的コンテンツを配信したい場合、主に活用するAWSの仕組みはどれですか。",
+        choices: ["エッジロケーション", "IAMグループ", "リザーブドインスタンス", "AWS Artifact"],
+        a: 0,
+        exp: "CloudFrontはエッジロケーションを使ってユーザーに近い場所からコンテンツを配信します。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "標準",
+        q: "データの保管場所に関する法規制や社内ルールに対応するため、最初に意識すべきAWSの選択単位はどれですか。",
+        choices: ["リージョン", "IAMアクセスキー", "S3オブジェクトキー", "CloudWatchメトリクス名"],
+        a: 0,
+        exp: "データをどの地理的エリアに置くかはリージョン選択に関係します。データ主権やレイテンシーの観点で重要です。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "AWS Cloud Adoption Framework (AWS CAF) の視点として正しい組み合わせはどれですか。",
+        choices: ["Business、People、Governance、Platform、Security、Operations", "Compute、Storage、Database、Network、Billing、Support", "Dev、Test、Stage、Prod、Archive、Delete", "Root、Admin、PowerUser、ReadOnly、Guest、Auditor"],
+        a: 0,
+        exp: "AWS CAFはクラウド導入を整理するための視点を提供します。Business、People、Governance、Platform、Security、Operationsが代表的です。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "クラウド移行による代表的な利点として最も適切なものはどれですか。",
+        choices: ["需要予測を完璧にしないと使えない", "数分でリソースを調達しやすい", "物理サーバーの保守が必須になる", "すべてのセキュリティ責任がAWSだけに移る"],
+        a: 1,
+        exp: "クラウドでは必要なリソースを短時間で用意しやすく、俊敏性の向上が大きな価値です。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "標準",
+        q: "単一障害点を減らす設計思想として、最もCLFで問われやすいものはどれですか。",
+        choices: ["複数AZを使う", "ルートユーザーで作業する", "ログを保存しない", "すべてを1台のEC2に集約する"],
+        a: 0,
+        exp: "可用性を高めるには複数AZや冗長化の設計が重要です。単一リソースへの依存を減らします。"
+      },
+      {
+        domain: "クラウド概念",
+        level: "基礎",
+        q: "AWSの責任共有モデルで、一般にAWSが責任を持つ範囲はどれですか。",
+        choices: ["クラウドの物理インフラの運用", "EC2上のアプリケーションコード", "IAMユーザーの権限設計", "S3オブジェクトの公開設定"],
+        a: 0,
+        exp: "AWSはクラウドのインフラ、利用者はクラウド内の設定やデータを主に担当します。責任共有モデルは最重要テーマです。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "基礎",
+        q: "IAMポリシー設計で推奨される最小権限の考え方はどれですか。",
+        choices: ["全員にAdministratorAccessを付与する", "必要な操作だけを許可する", "アクセスキーを共有する", "ルートユーザーを日常利用する"],
+        a: 1,
+        exp: "最小権限は必要な操作に絞って許可する考え方です。IAMの基本として頻出です。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "基礎",
+        q: "AWSリソースに一時的な認証情報でアクセスさせる用途に最も適したIAMの仕組みはどれですか。",
+        choices: ["IAMロール", "ルートユーザー", "請求アラート", "S3バケット名"],
+        a: 0,
+        exp: "IAMロールは一時的な認証情報を使って権限を委任できます。EC2やLambdaから他サービスへアクセスする場面で重要です。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "基礎",
+        q: "サインイン時の認証を強化するため、パスワードに加えて設定するものはどれですか。",
+        choices: ["MFA", "Spot Instance", "S3 Glacier", "AWS Batch"],
+        a: 0,
+        exp: "MFAは多要素認証です。特にルートユーザーや高権限ユーザーで有効化が推奨されます。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "基礎",
+        q: "AWSアカウントのルートユーザーに関するベストプラクティスはどれですか。",
+        choices: ["日常作業に使う", "アクセスキーを作って共有する", "MFAを有効化し、通常は使わない", "権限をIAMグループで制限する"],
+        a: 2,
+        exp: "ルートユーザーは強力な権限を持つため、MFAを有効化し、日常作業ではIAMユーザーやIAM Identity Centerを使います。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "基礎",
+        q: "暗号化キーの作成、管理、利用を行うAWSサービスはどれですか。",
+        choices: ["AWS KMS", "Amazon Route 53", "AWS Budgets", "Amazon Redshift"],
+        a: 0,
+        exp: "AWS Key Management Service (KMS) は暗号化キーを管理するサービスです。S3、EBS、RDSなど多くのサービスと連携します。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "標準",
+        q: "データベースのパスワードなどの機密情報を安全に保存し、自動ローテーションも検討したい場合に適したサービスはどれですか。",
+        choices: ["AWS Secrets Manager", "AWS Cost Explorer", "Amazon CloudFront", "AWS Direct Connect"],
+        a: 0,
+        exp: "Secrets Managerはシークレットの保管、取得、ローテーションに使われます。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "基礎",
+        q: "AWSアカウント内のAPI呼び出しやユーザー操作の記録に使うサービスはどれですか。",
+        choices: ["AWS CloudTrail", "Amazon EFS", "AWS Glue", "Amazon Polly"],
+        a: 0,
+        exp: "CloudTrailはアカウント内のAPIイベントを記録します。監査や原因調査で重要です。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "標準",
+        q: "リソース設定の変更履歴やコンプライアンス評価に使うサービスはどれですか。",
+        choices: ["AWS Config", "Amazon SQS", "Amazon Lex", "AWS Snow Family"],
+        a: 0,
+        exp: "AWS Configはリソース構成の記録、変更追跡、ルールによる評価に使われます。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "基礎",
+        q: "AWSのセキュリティやコンプライアンス関連ドキュメント、監査レポートを確認するサービスはどれですか。",
+        choices: ["AWS Artifact", "AWS Auto Scaling", "Amazon API Gateway", "Amazon Kinesis"],
+        a: 0,
+        exp: "AWS Artifactではコンプライアンスレポートや契約関連の文書を確認できます。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "標準",
+        q: "AWS環境の脅威検出を継続的に行い、不審なアクティビティを検出するサービスはどれですか。",
+        choices: ["Amazon GuardDuty", "Amazon Athena", "AWS CloudFormation", "AWS Pricing Calculator"],
+        a: 0,
+        exp: "GuardDutyは脅威検出サービスです。CloudTrail、VPC Flow Logs、DNSログなどを分析して検出します。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "標準",
+        q: "EC2インスタンスやコンテナイメージの脆弱性スキャンに関連するサービスはどれですか。",
+        choices: ["Amazon Inspector", "AWS Marketplace", "Amazon Connect", "AWS Step Functions"],
+        a: 0,
+        exp: "Amazon Inspectorはワークロードの脆弱性管理に使うサービスです。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "標準",
+        q: "S3内の個人情報などの機密データを検出したい場合に適したサービスはどれですか。",
+        choices: ["Amazon Macie", "Amazon EMR", "AWS Batch", "AWS License Manager"],
+        a: 0,
+        exp: "Macieは機械学習などを使ってS3内の機密データを検出します。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "基礎",
+        q: "SQLインジェクションやクロスサイトスクリプティングなど、Webアプリケーションへの攻撃対策に使うサービスはどれですか。",
+        choices: ["AWS WAF", "Amazon EBS", "AWS DMS", "Amazon WorkSpaces"],
+        a: 0,
+        exp: "AWS WAFはWeb ACLを使ってHTTP/HTTPSリクエストを制御するWebアプリケーションファイアウォールです。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "基礎",
+        q: "DDoS攻撃からの保護に関連するAWSサービスはどれですか。",
+        choices: ["AWS Shield", "Amazon QuickSight", "AWS AppSync", "Amazon Neptune"],
+        a: 0,
+        exp: "AWS ShieldはDDoS保護サービスです。CloudFrontやRoute 53などと組み合わせて問われます。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "標準",
+        q: "セキュリティグループの特徴として正しいものはどれですか。",
+        choices: ["ステートフルに動作する", "すべてのAWSアカウントで共有される", "S3バケット専用の暗号化キーである", "常にアウトバウンドを拒否する"],
+        a: 0,
+        exp: "セキュリティグループはステートフルです。戻りトラフィックは自動的に許可されます。NACLはステートレスです。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "標準",
+        q: "複数AWSアカウントに対して、許可できる操作の上限を一元的に制御したい場合に使う機能はどれですか。",
+        choices: ["AWS Organizations のSCP", "Amazon S3 Transfer Acceleration", "Amazon Rekognition", "AWS X-Ray"],
+        a: 0,
+        exp: "AWS Organizationsのサービスコントロールポリシー (SCP) は、アカウントやOUに対する権限の上限を定義します。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "標準",
+        q: "EC2上で動くゲストOSやアプリケーションのパッチ適用は、責任共有モデルでは主に誰の責任ですか。",
+        choices: ["利用者", "AWSだけ", "インターネットサービスプロバイダー", "AWS Marketplaceの出品者だけ"],
+        a: 0,
+        exp: "EC2ではゲストOS、ミドルウェア、アプリケーションの管理は主に利用者の責任です。基盤インフラはAWSが管理します。"
+      },
+      {
+        domain: "セキュリティとコンプライアンス",
+        level: "標準",
+        q: "従業員が複数のAWSアカウントやクラウドアプリにシングルサインオンするために使うサービスはどれですか。",
+        choices: ["AWS IAM Identity Center", "Amazon S3 Glacier", "AWS Glue", "Amazon Polly"],
+        a: 0,
+        exp: "AWS IAM Identity Centerは、組織内ユーザーのAWSアカウントやアプリへのアクセスを一元管理するサービスです。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "AWS上で仮想サーバーを起動して利用する代表的なコンピューティングサービスはどれですか。",
+        choices: ["Amazon EC2", "Amazon Route 53", "AWS Artifact", "Amazon Macie"],
+        a: 0,
+        exp: "Amazon EC2は仮想サーバーを提供する基本サービスです。インスタンスタイプや購入オプションも重要です。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "サーバー管理を意識せず、イベントに応じてコードを実行するサービスはどれですか。",
+        choices: ["AWS Lambda", "Amazon EBS", "AWS Direct Connect", "AWS Artifact"],
+        a: 0,
+        exp: "Lambdaはサーバーレスでコードを実行するサービスです。イベント駆動のユースケースでよく出ます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "標準",
+        q: "コンテナ実行時にサーバーやクラスター内インスタンスの管理を減らしたい場合に使う起動タイプはどれですか。",
+        choices: ["AWS Fargate", "Amazon EBS", "AWS CloudHSM", "Amazon Route 53"],
+        a: 0,
+        exp: "FargateはECSやEKSでサーバーレスにコンテナを実行する仕組みです。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "画像、ログ、バックアップなどをオブジェクトとして保存する基本的なストレージサービスはどれですか。",
+        choices: ["Amazon S3", "Amazon EFS", "Amazon EBS", "AWS Storage Gateway"],
+        a: 0,
+        exp: "Amazon S3は耐久性の高いオブジェクトストレージです。静的Web配信やバックアップでも使われます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "長期保管やアーカイブ用途で低コストなS3ストレージクラスはどれですか。",
+        choices: ["Amazon S3 Glacier", "Amazon EFS Standard", "Amazon EBS io2", "EC2 Instance Store"],
+        a: 0,
+        exp: "S3 Glacier系のストレージクラスは、アクセス頻度が低いデータの長期保存やアーカイブに向いています。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "EC2インスタンスにアタッチして使うブロックストレージはどれですか。",
+        choices: ["Amazon EBS", "Amazon S3", "Amazon Route 53", "AWS WAF"],
+        a: 0,
+        exp: "Amazon EBSはEC2向けのブロックストレージです。ボリュームやスナップショットが関連します。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "標準",
+        q: "複数のEC2インスタンスから同時に共有できる、マネージドなファイルストレージはどれですか。",
+        choices: ["Amazon EFS", "Amazon EBS", "AWS KMS", "Amazon SNS"],
+        a: 0,
+        exp: "Amazon EFSはNFSベースの共有ファイルストレージです。複数EC2からの共有に向きます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "MySQLやPostgreSQLなどのリレーショナルデータベースをマネージドで使うサービスはどれですか。",
+        choices: ["Amazon RDS", "Amazon DynamoDB", "Amazon Redshift", "Amazon Neptune"],
+        a: 0,
+        exp: "Amazon RDSはリレーショナルデータベースの運用をマネージド化します。Auroraも関連してよく出ます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "低レイテンシーでスケールしやすい、サーバーレスのキー・バリュー型NoSQLデータベースはどれですか。",
+        choices: ["Amazon DynamoDB", "Amazon Aurora", "Amazon DocumentDB", "Amazon RDS"],
+        a: 0,
+        exp: "DynamoDBはサーバーレスのNoSQLデータベースです。キー・バリューやドキュメントデータに使われます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "AWS内に論理的に分離したネットワークを作成するサービスはどれですか。",
+        choices: ["Amazon VPC", "AWS Budgets", "Amazon QuickSight", "AWS Artifact"],
+        a: 0,
+        exp: "Amazon VPCはAWS内の仮想ネットワークです。サブネット、ルートテーブル、セキュリティグループなどと関連します。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "ドメイン名の登録やDNSルーティングに使うAWSサービスはどれですか。",
+        choices: ["Amazon Route 53", "AWS Shield", "Amazon ECR", "AWS Backup"],
+        a: 0,
+        exp: "Route 53はDNS、ドメイン登録、ヘルスチェック、ルーティングポリシーを提供します。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "コンテンツを世界中のエッジロケーションから配信するCDNサービスはどれですか。",
+        choices: ["Amazon CloudFront", "Amazon CloudWatch", "AWS CloudTrail", "AWS Control Tower"],
+        a: 0,
+        exp: "CloudFrontはCDNサービスです。S3やALBなどをオリジンとして使えます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "複数のターゲットにトラフィックを分散するサービスはどれですか。",
+        choices: ["Elastic Load Balancing", "AWS Pricing Calculator", "Amazon Macie", "AWS Artifact"],
+        a: 0,
+        exp: "Elastic Load BalancingはEC2、コンテナ、Lambdaなどへのトラフィック分散に使われます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "利用状況に応じてEC2などのリソース数を自動調整するサービスはどれですか。",
+        choices: ["AWS Auto Scaling", "AWS DMS", "AWS Secrets Manager", "Amazon Textract"],
+        a: 0,
+        exp: "Auto Scalingは需要に合わせてキャパシティを調整し、可用性やコスト最適化に役立ちます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "標準",
+        q: "REST APIやHTTP APIの作成、公開、保護、スロットリングに使うサービスはどれですか。",
+        choices: ["Amazon API Gateway", "Amazon EFS", "AWS SCT", "Amazon Kendra"],
+        a: 0,
+        exp: "API GatewayはAPIのフロントドアとして使えます。Lambdaとの組み合わせも頻出です。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "標準",
+        q: "アプリケーション間を疎結合にするメッセージキューサービスはどれですか。",
+        choices: ["Amazon SQS", "Amazon SNS", "Amazon SES", "Amazon EventBridge"],
+        a: 0,
+        exp: "SQSはメッセージキューです。SNSは pub/sub 型の通知、EventBridgeはイベントバスとして使われます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "標準",
+        q: "イベントをルールで振り分け、SaaSやAWSサービス間のイベント連携に使うサービスはどれですか。",
+        choices: ["Amazon EventBridge", "AWS Cost Explorer", "AWS Artifact", "Amazon AppStream 2.0"],
+        a: 0,
+        exp: "EventBridgeはイベントバスを提供し、AWSサービス、独自アプリ、SaaSのイベント連携に使われます。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "基礎",
+        q: "メトリクス、ログ、アラームを使ってAWSリソースやアプリケーションを監視するサービスはどれですか。",
+        choices: ["Amazon CloudWatch", "AWS CloudTrail", "AWS Config", "AWS Artifact"],
+        a: 0,
+        exp: "CloudWatchはメトリクス、ログ、アラームなどの監視サービスです。CloudTrailはAPI操作の記録です。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "標準",
+        q: "S3上のデータを標準SQLで直接クエリしたい場合に使うサービスはどれですか。",
+        choices: ["Amazon Athena", "Amazon RDS", "AWS Fargate", "Amazon Cognito"],
+        a: 0,
+        exp: "AthenaはS3内のデータをSQLで分析できるサーバーレスクエリサービスです。"
+      },
+      {
+        domain: "クラウド技術とサービス",
+        level: "標準",
+        q: "機械学習モデルの構築、トレーニング、デプロイを支援するマネージドサービスはどれですか。",
+        choices: ["Amazon SageMaker AI", "Amazon Translate", "Amazon Polly", "Amazon Rekognition"],
+        a: 0,
+        exp: "Amazon SageMaker AIは機械学習モデルの開発や運用を支援します。他の選択肢は特定用途のAIサービスです。"
+      },
+      {
+        domain: "請求・料金・サポート",
+        level: "基礎",
+        q: "AWS利用料金を可視化し、サービス別や期間別に分析するサービスはどれですか。",
+        choices: ["AWS Cost Explorer", "AWS CloudTrail", "AWS WAF", "Amazon ECR"],
+        a: 0,
+        exp: "Cost ExplorerはAWSコストと使用量を可視化、分析するサービスです。"
+      },
+      {
+        domain: "請求・料金・サポート",
+        level: "基礎",
+        q: "設定した予算に近づいたとき、または超えたときに通知を受けたい場合に使うサービスはどれですか。",
+        choices: ["AWS Budgets", "AWS Shield", "Amazon EFS", "AWS Batch"],
+        a: 0,
+        exp: "AWS Budgetsはコスト、使用量、RI/Savings Plansの予算を設定し、通知できます。"
+      },
+      {
+        domain: "請求・料金・サポート",
+        level: "基礎",
+        q: "AWS利用前に構成を入力して月額費用を概算したい場合に使うツールはどれですか。",
+        choices: ["AWS Pricing Calculator", "AWS Artifact", "Amazon GuardDuty", "AWS Service Catalog"],
+        a: 0,
+        exp: "AWS Pricing CalculatorはAWS構成の費用見積もりに使う公式ツールです。"
+      },
+      {
+        domain: "請求・料金・サポート",
+        level: "標準",
+        q: "EC2の購入オプションで、長期的に一定量を使う場合に割引を受けやすいものはどれですか。",
+        choices: ["Reserved Instances", "On-Demand Instancesのみ", "Spot Instancesのみ", "Dedicated Hostsの停止"],
+        a: 0,
+        exp: "一定期間の利用コミットメントがある場合、Reserved InstancesやSavings Plansで割引を受けられます。"
+      },
+      {
+        domain: "請求・料金・サポート",
+        level: "標準",
+        q: "中断に強いバッチ処理などで、未使用キャパシティを低価格で利用できるEC2購入オプションはどれですか。",
+        choices: ["Spot Instances", "Reserved Instances", "Dedicated Hosts", "On-Demand Capacity Reservations"],
+        a: 0,
+        exp: "Spot Instancesは余剰キャパシティを割安に使えますが、中断される可能性があります。"
+      },
+      {
+        domain: "請求・料金・サポート",
+        level: "基礎",
+        q: "AWS環境のコスト、セキュリティ、耐障害性、パフォーマンスなどの推奨事項を確認するサービスはどれですか。",
+        choices: ["AWS Trusted Advisor", "Amazon CloudFront", "AWS KMS", "Amazon SQS"],
+        a: 0,
+        exp: "Trusted Advisorはベストプラクティスに基づく推奨事項を提示します。サポートプランにより利用できるチェック範囲が異なります。"
+      },
+      {
+        domain: "請求・料金・サポート",
+        level: "基礎",
+        q: "AWSやサードパーティーのソフトウェア、データ、サービスを検索・購入できる場所はどれですか。",
+        choices: ["AWS Marketplace", "AWS Organizations", "Amazon VPC", "AWS CloudFormation"],
+        a: 0,
+        exp: "AWS MarketplaceではAWS上で利用できるソフトウェアやサービスを調達できます。"
+      },
+      {
+        domain: "請求・料金・サポート",
+        level: "標準",
+        q: "請求やアカウントに関する基本的な問い合わせを含め、AWS利用者が全員利用できるサポートプランはどれですか。",
+        choices: ["Basic Support", "Developer Support", "Business Support", "Enterprise Support"],
+        a: 0,
+        exp: "Basic SupportはすべてのAWSアカウントで利用できます。技術サポートの範囲は有料プランで広がります。"
+      }
+    ];
+
+    const state = {
+      current: 0,
+      filter: "all",
+      wrongOnly: false,
+      order: QUESTIONS.map((_, index) => index),
+      choiceOrders: buildChoiceOrders(),
+      answers: Array(QUESTIONS.length).fill(null)
+    };
+
+    const els = {
+      body: document.body,
+      app: document.querySelector(".app"),
+      scoreValue: document.getElementById("scoreValue"),
+      progressBar: document.getElementById("progressBar"),
+      domainSelect: document.getElementById("domainSelect"),
+      shuffleBtn: document.getElementById("shuffleBtn"),
+      wrongBtn: document.getElementById("wrongBtn"),
+      quizPanel: document.getElementById("quizPanel"),
+      domainChip: document.getElementById("domainChip"),
+      levelChip: document.getElementById("levelChip"),
+      counter: document.getElementById("counter"),
+      questionText: document.getElementById("questionText"),
+      options: document.getElementById("options"),
+      explain: document.getElementById("explain"),
+      prevBtn: document.getElementById("prevBtn"),
+      nextBtn: document.getElementById("nextBtn"),
+      nextArrowBtn: document.getElementById("nextArrowBtn"),
+      emptyState: document.getElementById("emptyState"),
+      summary: document.getElementById("summary"),
+      summaryList: document.getElementById("summaryList"),
+      resetBtn: document.getElementById("resetBtn")
+    };
+
+    function init() {
+      DOMAINS.forEach((domain) => {
+        const option = document.createElement("option");
+        option.value = domain;
+        option.textContent = domain;
+        els.domainSelect.appendChild(option);
+      });
+
+      restore();
+      bindEvents();
+      render();
+    }
+
+    function bindEvents() {
+      els.domainSelect.addEventListener("change", () => {
+        state.filter = els.domainSelect.value;
+        state.current = 0;
+        save();
+        render();
+      });
+
+      els.shuffleBtn.addEventListener("click", () => {
+        shuffleOrder();
+        state.current = 0;
+        save();
+        render();
+      });
+
+      els.wrongBtn.addEventListener("click", () => {
+        state.wrongOnly = !state.wrongOnly;
+        state.current = 0;
+        save();
+        render();
+      });
+
+      els.prevBtn.addEventListener("click", () => move(-1));
+      els.nextArrowBtn.addEventListener("click", () => move(1));
+      els.nextBtn.addEventListener("click", jumpNextUnanswered);
+      els.resetBtn.addEventListener("click", resetAnswers);
+      window.addEventListener("resize", adjustFit);
+
+      document.addEventListener("keydown", (event) => {
+        if (event.target && ["SELECT", "BUTTON"].includes(event.target.tagName)) return;
+        if (event.key >= "1" && event.key <= "4") choose(Number(event.key) - 1);
+        if (event.key === "ArrowLeft") move(-1);
+        if (event.key === "ArrowRight") move(1);
+      });
+    }
+
+    function visibleIndices() {
+      return state.order.filter((index) => {
+        const question = QUESTIONS[index];
+        const domainMatch = state.filter === "all" || question.domain === state.filter;
+        const wrongMatch = !state.wrongOnly || (state.answers[index] !== null && state.answers[index] !== question.a);
+        return domainMatch && wrongMatch;
+      });
+    }
+
+    function render() {
+      const visible = visibleIndices();
+      const hasQuestions = visible.length > 0;
+
+      els.quizPanel.style.display = hasQuestions ? "block" : "none";
+      els.emptyState.classList.toggle("visible", !hasQuestions);
+      els.wrongBtn.classList.toggle("active", state.wrongOnly);
+      els.domainSelect.value = state.filter;
+
+      renderScore();
+      renderSummary();
+
+      if (!hasQuestions) return;
+
+      if (state.current >= visible.length) state.current = visible.length - 1;
+      if (state.current < 0) state.current = 0;
+
+      const questionIndex = visible[state.current];
+      const question = QUESTIONS[questionIndex];
+      const selected = state.answers[questionIndex];
+
+      els.domainChip.textContent = question.domain;
+      els.levelChip.textContent = question.level;
+      els.counter.textContent = `${state.current + 1} / ${visible.length}`;
+      els.questionText.textContent = question.q;
+      els.explain.textContent = question.exp;
+      els.explain.classList.toggle("visible", selected !== null);
+      els.options.innerHTML = "";
+
+      const choiceOrder = state.choiceOrders[questionIndex] || makeChoiceOrder(question, questionIndex);
+
+      choiceOrder.forEach((originalChoiceIndex, choiceIndex) => {
+        const choice = question.choices[originalChoiceIndex];
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "option";
+        button.setAttribute("aria-label", `${choiceIndex + 1}. ${choice}`);
+
+        if (selected !== null) {
+          if (originalChoiceIndex === question.a) button.classList.add("correct");
+          if (originalChoiceIndex === selected && selected !== question.a) button.classList.add("incorrect");
+        }
+
+        const key = document.createElement("span");
+        key.className = "option-key";
+        key.textContent = String.fromCharCode(65 + choiceIndex);
+
+        const text = document.createElement("span");
+        text.className = "option-text";
+        text.textContent = choice;
+
+        button.append(key, text);
+        button.addEventListener("click", () => choose(choiceIndex));
+        els.options.appendChild(button);
+      });
+
+      els.prevBtn.disabled = state.current === 0;
+      els.nextArrowBtn.disabled = state.current === visible.length - 1;
+      updatePrimaryLabel(visible);
+      adjustFit();
+    }
+
+    function choose(choiceIndex) {
+      const visible = visibleIndices();
+      if (!visible.length) return;
+
+      const questionIndex = visible[state.current];
+      const question = QUESTIONS[questionIndex];
+      const choiceOrder = state.choiceOrders[questionIndex] || makeChoiceOrder(question, questionIndex);
+      state.answers[questionIndex] = choiceOrder[choiceIndex];
+      save();
+      render();
+    }
+
+    function move(delta) {
+      const visible = visibleIndices();
+      if (!visible.length) return;
+
+      state.current = Math.min(Math.max(state.current + delta, 0), visible.length - 1);
+      save();
+      render();
+    }
+
+    function jumpNextUnanswered() {
+      const visible = visibleIndices();
+      if (!visible.length) return;
+
+      const next = visible.findIndex((questionIndex, index) => index > state.current && state.answers[questionIndex] === null);
+      if (next !== -1) {
+        state.current = next;
+        save();
+        render();
+        return;
+      }
+
+      const first = visible.findIndex((questionIndex) => state.answers[questionIndex] === null);
+      if (first !== -1) {
+        state.current = first;
+        save();
+        render();
+        return;
+      }
+
+      if (state.current < visible.length - 1) {
+        state.current += 1;
+        save();
+        render();
+      }
+    }
+
+    function updatePrimaryLabel(visible) {
+      const unanswered = visible.some((questionIndex) => state.answers[questionIndex] === null);
+      if (unanswered) {
+        els.nextBtn.textContent = "次の未回答へ";
+      } else if (state.current < visible.length - 1) {
+        els.nextBtn.textContent = "次の問題へ";
+      } else {
+        els.nextBtn.textContent = "完了";
+      }
+    }
+
+    function renderScore() {
+      const answered = state.answers.filter((answer) => answer !== null).length;
+      const correct = state.answers.reduce((sum, answer, index) => {
+        return sum + (answer === QUESTIONS[index].a ? 1 : 0);
+      }, 0);
+
+      els.scoreValue.textContent = `${correct}/${answered}`;
+      els.progressBar.style.width = `${Math.round((answered / QUESTIONS.length) * 100)}%`;
+    }
+
+    function renderSummary() {
+      const answered = state.answers.filter((answer) => answer !== null).length;
+      els.summary.classList.toggle("visible", answered > 0);
+      els.summaryList.innerHTML = "";
+
+      DOMAINS.forEach((domain) => {
+        const indices = QUESTIONS
+          .map((question, index) => ({ question, index }))
+          .filter((item) => item.question.domain === domain);
+        const answeredInDomain = indices.filter((item) => state.answers[item.index] !== null).length;
+        const correctInDomain = indices.filter((item) => state.answers[item.index] === item.question.a).length;
+
+        const stat = document.createElement("div");
+        stat.className = "domain-stat";
+        stat.innerHTML = `
+          <div class="domain-name">${domain}</div>
+          <div class="domain-score">${correctInDomain}/${answeredInDomain}</div>
+        `;
+        els.summaryList.appendChild(stat);
+      });
+    }
+
+    function resetAnswers() {
+      state.answers = Array(QUESTIONS.length).fill(null);
+      state.current = 0;
+      state.wrongOnly = false;
+      save();
+      render();
+    }
+
+    function shuffleOrder() {
+      const order = QUESTIONS.map((_, index) => index);
+      for (let i = order.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      state.order = order;
+    }
+
+    function save() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        current: state.current,
+        filter: state.filter,
+        wrongOnly: state.wrongOnly,
+        order: state.order,
+        choiceOrders: state.choiceOrders,
+        answers: state.answers
+      }));
+    }
+
+    function restore() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!saved) return;
+
+        if (Array.isArray(saved.answers) && saved.answers.length === QUESTIONS.length) {
+          state.answers = saved.answers;
+        }
+        if (Array.isArray(saved.order) && saved.order.length === QUESTIONS.length) {
+          state.order = saved.order;
+        }
+        if (Array.isArray(saved.choiceOrders) && saved.choiceOrders.length === QUESTIONS.length && saved.choiceOrders.every(isValidChoiceOrder)) {
+          state.choiceOrders = saved.choiceOrders;
+        }
+        if (DOMAINS.includes(saved.filter) || saved.filter === "all") {
+          state.filter = saved.filter;
+        }
+        state.wrongOnly = Boolean(saved.wrongOnly);
+        state.current = Number.isInteger(saved.current) ? saved.current : 0;
+      } catch (error) {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    }
+
+    function buildChoiceOrders() {
+      return QUESTIONS.map((question, index) => makeChoiceOrder(question, index));
+    }
+
+    function makeChoiceOrder(question, questionIndex) {
+      const correctSlot = questionIndex % 4;
+      const distractors = [0, 1, 2, 3].filter((index) => index !== question.a);
+      shuffleArray(distractors);
+
+      const order = [];
+      let distractorIndex = 0;
+      for (let slot = 0; slot < 4; slot += 1) {
+        order[slot] = slot === correctSlot ? question.a : distractors[distractorIndex++];
+      }
+      return order;
+    }
+
+    function isValidChoiceOrder(order) {
+      return Array.isArray(order) &&
+        order.length === 4 &&
+        new Set(order).size === 4 &&
+        order.every((index) => Number.isInteger(index) && index >= 0 && index <= 3);
+    }
+
+    function shuffleArray(items) {
+      for (let i = items.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+      return items;
+    }
+
+    function adjustFit() {
+      els.body.classList.remove("fit-tight", "fit-ultra");
+
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      if (height <= 610 || width <= 420) {
+        els.body.classList.add("fit-tight");
+      }
+      if (height <= 480 || width <= 330) {
+        els.body.classList.remove("fit-tight");
+        els.body.classList.add("fit-ultra");
+      }
+
+      requestAnimationFrame(() => {
+        const overflows = els.app.scrollHeight > els.app.clientHeight + 1 ||
+          document.documentElement.scrollHeight > window.innerHeight + 1;
+
+        if (overflows && !els.body.classList.contains("fit-ultra")) {
+          els.body.classList.remove("fit-tight");
+          els.body.classList.add("fit-ultra");
+        }
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
